@@ -10,5 +10,5 @@ endpoint_name = "passport-extraction-sagemaker-deployment-"+version
 model_bucket_name="passport-extraction-sagemaker-model-bucket"
 model_location=f"s3://sagemaker-{region}-{account_id}/{model_bucket_name}/models.tar.gz"
 inference_repository_uri=f"{account_id}.dkr.ecr.{region}.amazonaws.com/{endpoint_name}:test"+version
-build_endpoint_docker=True
+build_endpoint_docker=False
 delete_endpoint_after_prediction=False

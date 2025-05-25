@@ -99,7 +99,7 @@ if __name__=="__main__":
 
 
 
-    path='../test.jpg'
+    path='test.jpg'
     infer(path)
 
     if delete_endpoint_after_prediction:
