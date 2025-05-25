@@ -6,8 +6,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code with LFS
         uses: actions/checkout@v3
+        with:
+          lfs: true  # ✅ This ensures LFS pointer files are fetched
+
+      - name: Set up Git LFS
+        run: |
+          git lfs install
+          git lfs pull  #downloads the ONNX file
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -17,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest onnxruntime
 
       - name: Run tests
         run: |
