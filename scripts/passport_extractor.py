@@ -41,7 +41,8 @@ if __name__=="__main__":
     import numpy as np
     import base64
     img=cv2.imread("test.jpg")
-    passport_extractor_client=Passport_Extractor("models")
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    passport_extractor_client=Passport_Extractor(os.path.join(project_root,"models"))
     output=passport_extractor_client.extract(img)
     #byte_data = bytearray(json.dumps(output).encode("utf-8"))
     print(passport_extractor_client.extract(img)["mrz"])
