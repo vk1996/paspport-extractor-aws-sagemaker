@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest tests/
 
       - name: Deploy to SageMaker
         env:
@@ -36,4 +36,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: 'us-east-1'
         run: |
-          python sagemaker_deploy_and_test.py
+          python scripts/sagemaker_deploy_and_test.py
