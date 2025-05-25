@@ -39,8 +39,8 @@ def check_endpoint_exists(endpoint_name):
             raise
 
 def build_sagemaker_docker_and_push_to_ecr():
-    os.system(f"sudo docker build -t {endpoint_name} scripts/.")
-    os.system(f"sudo docker tag {endpoint_name} {inference_repository_uri}")
+    os.system(f"docker build -t {endpoint_name} scripts/.")
+    os.system(f"docker tag {endpoint_name} {inference_repository_uri}")
     os.system(f"aws ecr get-login-password --region {region} | sudo docker login --username AWS --password-stdin {account_id}.dkr.ecr.{region}.amazonaws.com")
     os.system(f"aws ecr create-repository --repository-name {endpoint_name}")
     os.system(f"sudo docker push {account_id}.dkr.ecr.{region}.amazonaws.com/{endpoint_name}:test{version}")
