@@ -8,12 +8,13 @@ class PassportDetector():
 
     def __init__(self, model_path, scaling=False, classes_path="models/class_names.txt"):
         self.scaling = scaling
+        classes_path=model_path.replace("passport.onnx","class_names.txt")
         with open(classes_path, 'r') as classes_file:
                 self.classes = classes_file.read().split('\n')
-
         providers = ['CPUExecutionProvider']
         self.model = onnxruntime.InferenceSession(model_path, providers=providers)
         self.image_size = self.model.get_inputs()[0].shape[-2:]
+        print("Passport detector model loaded")
 
     def __preprocess_image(self, img, swap=(2, 0, 1)):
         padded_img = np.ones((self.image_size[0], self.image_size[1], 3), dtype=np.uint8) * 114

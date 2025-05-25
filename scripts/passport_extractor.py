@@ -8,7 +8,7 @@ import cv2
 class Passport_Extractor():
 
     def __init__(self,model_dir):
-        self.passport_detector_client = PassportDetector(model_path=os.path.join(model_dir,"paspport.onnx"))
+        self.passport_detector_client = PassportDetector(model_path=os.path.join(model_dir,"passport.onnx"))
         self.ocr_client = OCR_Inference(model_path=os.path.join(model_dir,"ocr.xml"))
 
     @staticmethod

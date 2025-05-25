@@ -8,8 +8,9 @@ import io
 import os
 import json
 from PIL import Image
-from passport_extractor import Passport_Extractor
+from passport_extractor import  Passport_Extractor
 import logging
+from glob import glob
 import numpy as np
 
 
@@ -39,7 +40,9 @@ class Inference(object):
         self.initialized = True
         properties = context.system_properties
         model_dir= properties.get("model_dir")
-        self.passport_extractor_client=Passport_Extractor(model_dir)
+        print("[INFO]:",model_dir)
+        print(glob(model_dir))
+        self.model=Passport_Extractor(model_dir)
         self.logger.info('ONNX Model loaded')
 
     def check_bytearray_type(self,data: bytearray):
@@ -66,13 +69,13 @@ class Inference(object):
             data = Image.open(io.BytesIO(payload))
             data = np.array(data)
             self.logger.info('Input shape: '+str(data.shape))
-            output=self.passport_extractor_client.extract(data)
+            output=self.model.extract(data)
 
         else:
             self.logger.error('Incomplete Prediction')
             return []
         self.logger.info('Prediction completed')
-        # byte_data = output.tobytes()
+        #tensor_bytes = output.tobytes()
         byte_data = bytearray(json.dumps(output).encode("utf-8"))
         self.logger.info('Output ready')
         return [byte_data]

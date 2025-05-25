@@ -166,15 +166,17 @@ class OCR_Inference():
         '''
 
         ie = Core()
-
+        print("OCR model loaded")
         print('\n',model_path)
+        dict_path=model_path.replace("ocr.xml","dict.txt")
+        print("ocr dict path:",dict_path)
 
         model = ie.read_model(model=model_path)
         self.compiled_model = ie.compile_model(model=model, device_name="CPU")
 
         self.input_layer = self.compiled_model.input(0)
         self.output_layer = self.compiled_model.output(0)
-        self.decoder=CTCLabelDecode("models/dict.txt",True)
+        self.decoder=CTCLabelDecode(dict_path,True)
         self.show_frame=None
         self.image_shape=None
         self.dynamic_width=False
@@ -257,11 +259,9 @@ class OCR_Inference():
         for item in src:
 
             if hasattr(item,'shape'):
-
                 imgs.append(np.expand_dims(self.resize_norm_img(item),axis=0))
 
             elif isinstance(item,str):
-                
                 with open(item, 'rb') as f:
                     content=f.read()
                 imgs.append(np.expand_dims(self.resize_norm_img(img_decode(content)),axis=0))
@@ -270,26 +270,13 @@ class OCR_Inference():
                 return "Error: Invalid Input"
             
             show_frames.append(self.show_frame)
-            
-
         blob=np.concatenate(imgs,axis=0).astype(np.float32)
-        
         outputs = self.compiled_model([blob])[self.output_layer]
-
-        
         texts=[]
-
         for output in outputs:
-
             output=np.expand_dims(output,axis=0)
-
             curr_text=self.decoder(output)[0][0]
-
-
             texts.append(curr_text)
-
-        
-   
         return texts
     
 

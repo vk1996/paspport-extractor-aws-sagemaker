@@ -26,19 +26,19 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install ffmpeg libsm6 libxext6 -y
 
 
-RUN pip3 install opencv_python onnxruntime requests  multi-model-server \
+RUN pip3 install opencv_python onnxruntime openvino requests  multi-model-server \
                 sagemaker-inference retrying
 
 COPY dockered-entrypoint.py /usr/local/bin/dockered-entrypoint.py
 RUN chmod +x /usr/local/bin/dockered-entrypoint.py
-
 RUN mkdir -p /home/model-server/
 
 # Copy the custom service file to handle incoming data and inference requests
-COPY scripts/dockered-inference.py /home/model-server/dockered-inference.py
-COPY scripts/passport_extractor.py /home/model-server/passport_extractor.py
-COPY scripts/passport_detector.py /home/model-server/passport_detector.py
-COPY scripts/ocr_inference.py /home/model-server/ocr_inference.py
+COPY ocr_inference.py /home/model-server/ocr_inference.py
+COPY passport_detector.py /home/model-server/passport_detector.py
+COPY passport_extractor.py /home/model-server/passport_extractor.py
+COPY dockered-inference.py /home/model-server/dockered-inference.py
+
 
 
 RUN mkdir -p /home/raw-data/
