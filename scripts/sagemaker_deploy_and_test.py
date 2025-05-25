@@ -21,7 +21,8 @@ def infer(input_data):
     payload = bytearray(img_bytes )
 
     byte_data= predictor.predict(payload)
-    print(json.loads(byte_data.decode('utf-8'))["mrz"])
+    mrz_result = json.loads(byte_data.decode('utf-8'))["mrz"]
+    assert mrz_result == "P<D<<MUSTERMANN<<ERIKA<<<<<<<<<<<<<<<<<<<<<<\nC01X00T478D<<6408125F2702283<<<<<<<<<<<<<<<4"
 
 
 def check_endpoint_exists(endpoint_name):
@@ -38,7 +39,7 @@ def check_endpoint_exists(endpoint_name):
             raise
 
 def build_sagemaker_docker_and_push_to_ecr():
-    os.system(f"sudo docker build -t {endpoint_name} .")
+    os.system(f"sudo docker build -t {endpoint_name} scripts/.")
     os.system(f"sudo docker tag {endpoint_name} {inference_repository_uri}")
     os.system(f"aws ecr get-login-password --region {region} | sudo docker login --username AWS --password-stdin {account_id}.dkr.ecr.{region}.amazonaws.com")
     os.system(f"aws ecr create-repository --repository-name {endpoint_name}")

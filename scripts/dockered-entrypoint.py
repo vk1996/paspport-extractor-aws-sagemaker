@@ -8,7 +8,7 @@ import sys
 import shlex
 from retrying import retry
 from subprocess import CalledProcessError
-from sagemaker_inference import model_server
+from sagemaker_deploy_and_test import model_server
 
 def _retry_if_error(exception):
     return isinstance(exception, CalledProcessError or OSError)

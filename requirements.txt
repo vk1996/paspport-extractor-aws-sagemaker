@@ -1,3 +1,6 @@
 opencv-python
 onnxruntime
 openvino
+sagemaker
+boto3
+botocore
