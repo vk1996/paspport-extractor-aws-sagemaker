@@ -2,7 +2,7 @@ import boto3
 from sagemaker import get_execution_role
 
 
-version='11'
+version='12'
 role = get_execution_role()
 region=boto3.session.Session().region_name
 account_id = boto3.client('sts').get_caller_identity().get('Account')
