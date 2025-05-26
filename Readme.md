@@ -19,12 +19,13 @@
 pip install -r requirements.txt
 python scripts/main.py
 ```
+#### Test Sagemaker endpoint cli ####
 ```commandline
 echo "{\"data\": \"$(base64 -w 0 test.jpg)\"}" > payload.json
 curl -s -X POST https://tjbkngoydd.execute-api.us-east-1.amazonaws.com/test   -H "Content-Type: application/json"   -d @payload.json | jq -r '.mrz'
 ```
 
-#### Deploying Sagemaker endpoint manually Github Actions  ####
+#### Deploying Sagemaker endpoint manually without Github Actions  ####
 
 ```commandline
 python scripts/sagemaker_deploy_and_test.py
