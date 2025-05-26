@@ -4,3 +4,4 @@ openvino
 sagemaker
 boto3
 botocore
+mysql-connector-python

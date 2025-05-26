@@ -1,3 +1,4 @@
 *.png
 *.gz
 .idea
+test-samples/
