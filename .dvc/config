@@ -1,4 +1,0 @@
-[core]
-    remote = myremote
-['remote "myremote"']
-    url = s3://sagemaker-us-east-1-879381237689/passport-extraction-sagemaker--model-bucket/
