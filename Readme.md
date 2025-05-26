@@ -11,7 +11,7 @@
 ##### * Writing passport data & photo to Database via SQL ##### 
 
 #### Deployment Architecture  ####
-![flow.png](readme-assets/flow.png)
+!![flow_img.png](readme-assets/flow_img.png)
 
 #### Test Sagemaker endpoint  ####
 
